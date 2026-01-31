@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ trans.lang }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ trans.task_detail_title }} - {{ filename }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="bg-gray-800 px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-white"><i class="fas fa-file-alt mr-2"></i>{{ filename }}</h1>
+            <a href="/" class="text-gray-300 hover:text-white"><i class="fas fa-arrow-left mr-1"></i>{{ trans.back_to_console }}</a>
+        </div>
+        <div class="p-6">
+            <pre class="bg-gray-50 p-4 rounded border border-gray-200 font-mono text-sm whitespace-pre-wrap">{{ content }}</pre>
+        </div>
+    </div>
+
+    <!-- Language Switcher (Fixed Bottom Left) -->
+    <div class="fixed bottom-4 left-4 z-50 group">
+        <!-- Dropdown Menu (Opens Upwards) -->
+        <div class="absolute bottom-full left-0 w-32 pb-2 hidden group-hover:block">
+            <div class="bg-white rounded-md shadow-lg py-1">
+                <a href="/set_lang?lang=en" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">English</a>
+                <a href="/set_lang?lang=zh" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">中文</a>
+            </div>
+        </div>
+        
+        <button class="bg-gray-800 text-white rounded-full p-3 shadow-lg hover:bg-gray-700 focus:outline-none flex items-center justify-center w-12 h-12 transition duration-200">
+            <i class="fas fa-globe text-lg"></i>
+        </button>
+    </div>
+</body>
+</html>

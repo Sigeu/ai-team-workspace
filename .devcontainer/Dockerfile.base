@@ -1,0 +1,47 @@
+# Use DevContainer image provided by Microsoft, built-in 'node' user (UID 1000)
+FROM mcr.microsoft.com/devcontainers/javascript-node:22
+
+# 1. Install basic dependencies and locales
+RUN apt-get update && apt-get install -y \
+    unzip \
+    curl \
+    inotify-tools \
+    locales \
+    bsdutils \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. Generate UTF-8 locale
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
+    && echo "zh_CN.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen
+
+# 3. Set global environment variables to force UTF-8
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+# (Optional) If you want to display Chinese by default, change to zh_CN.UTF-8, 
+# but en_US is recommended for better tool compatibility.
+# ENV LANG=zh_CN.UTF-8
+
+# Configure NPM global path
+ENV NPM_CONFIG_PREFIX="/home/node/.npm-global"
+ENV PATH="/home/node/.npm-global/bin:/home/node/.bun/bin:${PATH}"
+
+# Create directories and set permissions
+RUN mkdir -p /workspaces/.ai_team/tasks \
+    && mkdir -p /workspaces/.ai_team/logs \
+    && mkdir -p /workspaces/.ai_team/drafts \
+    && mkdir -p /home/node/.npm-global \
+    && chown -R node:node /workspaces /home/node/.npm-global
+
+# Switch user
+USER node
+
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash
+
+WORKDIR /workspaces
+
+COPY --chown=node:node install-agents.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-agents.sh
+
+CMD ["/usr/local/bin/install-agents.sh"]

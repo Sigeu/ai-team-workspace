@@ -1,0 +1,46 @@
+# Environment & Secrets
+.env
+
+# Proxy Auths
+proxy/auths/*
+!proxy/auths/.gitkeep
+
+# Proxy Configuration (active files)
+proxy/config.yaml
+
+# Proxy Logs
+proxy/logs/*
+!proxy/logs/.gitkeep
+
+# Agent Configs
+# 1. Ignore everything in config/
+config/*
+
+# 2. Un-ignore the specific directories we want to keep
+!config/claude/
+!config/gemini/
+!config/npm-global/
+
+# 3. Ignore contents of those directories
+config/claude/*
+config/gemini/*
+config/npm-global/*
+
+# 4. Un-ignore .gitkeep to preserve the directories
+!config/claude/CLAUDE.md
+!config/gemini/GEMINI.md
+!config/npm-global/.gitkeep
+
+# Shared Workspace
+workspaces/*
+!workspaces/.gitkeep
+
+# Python
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary Files
+.gemini/
+.claude/
+tmp/
